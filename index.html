@@ -1,57 +1,112 @@
-<script>let contenedor = document.getElementById("numeros");
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sorteos El Chore</title>
+</head>
 
-fetch("https://script.google.com/macros/s/AKfycbz_cNL9KmRf0LvM5jxwQ5VBUqQ4Z74YBq_187XSu5atbYChfgh2nJhZug58N6ge-8x_/exec")
-.then(res => res.text())
-.then(texto => JSON.parse(texto))
-.then(datos => {
+<body style="margin:0; font-family:Arial; background:linear-gradient(to bottom,#111,#000); color:white;">
 
-  let vendidos = datos
-    .filter(x => x.estado === "Vendido")
-    .map(x => x.numero.toString().padStart(4,"0"));
+<div style="max-width:600px; margin:50px auto; background:#1c1c1c; padding:20px; border-radius:15px; text-align:center;">
 
-  let apartados = datos
-    .filter(x => x.estado === "Apartado")
-    .map(x => x.numero.toString().padStart(4,"0"));
+<h1 style="color:#FFD700;">🚗 Sorteos El Chore 🚗</h1>
 
+<img src="silverado2026.jpg" alt="Silverado 1500 2019" style="width:100%; border-radius:15px;">
 
-  for(let i = 1; i <= 2500; i++){
+<h2>Gran Rifa Chevrolet Silverado 1500 2019</h2>
 
-    let numero = i.toString().padStart(4,"0");
+<p>🎉 Premio: Chevrolet Silverado 1500 2019</p>
+<p style="color:#00ff00;">💰 Boleto: $350 pesos</p>
+<p>🎟️ 2,500 boletos disponibles</p>
+<p>🔥 4 oportunidades extra por boleto</p>
+<p>📍 Ciudad Juárez</p>
 
-    let caja = document.createElement("div");
-    caja.style.textAlign="center";
+<hr style="border:1px solid #333;">
 
-    let boton = document.createElement("a");
+<h3>✨ ¡Participa ahora!</h3>
 
-    boton.innerHTML = numero;
-    boton.href="https://mpago.la/1nG11oc";
-    boton.target="_blank";
+<p>Sujeto al 60% de venta</p>
 
+<div>
+<p style="color:#00ff00;font-weight:bold;">🟢 Disponibles</p>
+<p style="color:#ffff00;font-weight:bold;">🟡 Apartados</p>
+<p style="color:red;font-weight:bold;">🔴 Vendidos</p>
+</div>
 
-    if(vendidos.includes(numero)){
-      boton.style.background="red";
-    }
-    else if(apartados.includes(numero)){
-      boton.style.background="#ffff00";
-    }
-    else{
-      boton.style.background="#00ff00";
-    }
+<h2>🎟️ Elige tu número</h2>
 
-
-    boton.style.color="black";
-    boton.style.padding="8px";
-    boton.style.borderRadius="8px";
-    boton.style.textDecoration="none";
-    boton.style.fontWeight="bold";
-    boton.style.display="inline-block";
+<div id="numeros" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;"></div>
 
 
-    caja.appendChild(boton);
-    
-    contenedor.appendChild(caja);
+<script>
 
-  }
+let contenedor = document.getElementById("numeros");
 
-});
+let vendidos = [];
+let apartados = [];
+
+for(let i = 1; i <= 2500; i++){
+
+let numero = i.toString().padStart(4,"0");
+
+let caja = document.createElement("div");
+caja.style.textAlign="center";
+
+let boton = document.createElement("a");
+
+boton.innerHTML = numero;
+boton.href="https://mpago.la/1nG11oc";
+boton.target="_blank";
+
+
+if(vendidos.includes(numero)){
+boton.style.background="red";
+}
+else if(apartados.includes(numero)){
+boton.style.background="#ffff00";
+}
+else{
+boton.style.background="#00ff00";
+}
+
+
+boton.style.color="black";
+boton.style.padding="8px";
+boton.style.borderRadius="8px";
+boton.style.textDecoration="none";
+boton.style.fontWeight="bold";
+boton.style.display="inline-block";
+
+
+
+
+boton.style.color="black";
+boton.style.padding="8px";
+boton.style.borderRadius="8px";
+boton.style.textDecoration="none";
+boton.style.fontWeight="bold";
+boton.style.display="inline-block";
+
+caja.appendChild(boton);
+
+contenedor.appendChild(caja);
+
+
+
+
+}
+
 </script>
+
+
+<a href="https://wa.me/5216563605771?text=Hola%20quiero%20comprar%20boletos%20para%20la%20rifa%20de%20la%20Silverado"
+style="display:inline-block;margin-top:20px;padding:12px 20px;background:#25D366;color:white;text-decoration:none;border-radius:10px;font-weight:bold;">
+🎟️ Quiero participar
+</a>
+
+
+</div>
+
+</body>
+</html>
