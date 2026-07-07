@@ -34,6 +34,32 @@
 <p style="color:red; font-weight:bold;">🔴 Números vendidos</p>
 </div>
 <h2>🎟️ Elige tu número</h2>
+  <div id="numeros" style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center;"></div>
+
+<script>
+let contenedor = document.getElementById("numeros");
+
+for(let i = 1; i <= 2500; i++){
+
+let numero = i.toString().padStart(4,"0");
+
+let boton = document.createElement("a");
+
+boton.innerHTML = numero;
+
+boton.href = "https://mpago.la/1nG11oc";
+
+boton.style.background = "#00ff00";
+boton.style.color = "black";
+boton.style.padding = "8px";
+boton.style.borderRadius = "8px";
+boton.style.textDecoration = "none";
+boton.style.fontWeight = "bold";
+
+contenedor.appendChild(boton);
+
+}
+</script>  
 
 <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center;">
 
