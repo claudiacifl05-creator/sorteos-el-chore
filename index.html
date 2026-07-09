@@ -32,6 +32,7 @@
 <p style="color:#00ff00;font-weight:bold;">🟢 Disponibles</p>
 <p style="color:#ffff00;font-weight:bold;">🟡 Apartados</p>
 <p style="color:red;font-weight:bold;">🔴 Vendidos</p>
+<p style="color:purple;font-weight:bold;">🟣 Oportunidad extra</p>
 </div>
 
 <h2>🎟️ Elige tu número</h2>
@@ -45,6 +46,7 @@ let contenedor = document.getElementById("numeros");
 
 let vendidos = [];
 let apartados = [];
+let asignados = [];
 
 fetch("https://script.google.com/macros/s/AKfycbz_cNL9KmRf0LvM5jxwQ5VBUqQ4Z74YBq_187XSu5atbYChfgh2nJhZug58N6ge-8x_/exec")
 .then(res => res.json())
@@ -57,7 +59,10 @@ fetch("https://script.google.com/macros/s/AKfycbz_cNL9KmRf0LvM5jxwQ5VBUqQ4Z74YBq
   apartados = datos
     .filter(x => x.estado === "Apartado")
     .map(x => x.numero.toString().padStart(4,"0"));
-
+  
+asignados = datos
+  .filter(x => x.estado === "Asignado")
+  .map(x => x.numero.toString().padStart(4,"0"));
   console.log(datos);
 for(let i = 1; i <= 2500; i++){
 
@@ -75,6 +80,9 @@ boton.target="_blank";
 
 if(vendidos.includes(numero)){
 boton.style.background="red";
+}
+else if(asignados.includes(numero)){
+boton.style.background="purple";
 }
 else if(apartados.includes(numero)){
 boton.style.background="#ffff00";
