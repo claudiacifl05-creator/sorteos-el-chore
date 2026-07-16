@@ -39,18 +39,37 @@
 
 <div id="numeros" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;"></div>
 
+<!-- Ventana emergente para mostrar oportunidades -->
+<div id="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:999;">
+  <div style="background:#1c1c1c; padding:20px; border-radius:15px; max-width:350px; text-align:center; color:white;">
+    <h2 style="color:#FFD700;">🚗 Sorteos El Chore</h2>
+    <h3>🎟️ Boleto: <span id="boletoSeleccionado"></span></h3>
+
+    <p>🍀 Tus oportunidades extra:</p>
+    <div id="oportunidades" style="margin:10px 0; line-height:1.8;"></div>
+
+    <p style="font-size:14px; color:#ccc;">Recuerda enviar tu comprobante de pago para confirmar tu boleto.</p>
+
+    <div style="margin-top:15px; display:flex; gap:10px; justify-content:center;">
+      <button id="continuarBtn" style="background:#00ff00; color:black; border:none; padding:10px 15px; border-radius:8px; font-weight:bold; cursor:pointer;">Continuar</button>
+      <button id="cerrarBtn" style="background:#555; color:white; border:none; padding:10px 15px; border-radius:8px; cursor:pointer;">Elegir otro</button>
+    </div>
+  </div>
+</div>
 
 <script>
-
 let contenedor = document.getElementById("numeros");
 
 let vendidos = [];
 let apartados = [];
 let asignados = [];
+let datosBoletos = [];
 
 fetch("https://script.google.com/macros/s/AKfycbz_cNL9KmRf0LvM5jxwQ5VBUqQ4Z74YBq_187XSu5atbYChfgh2nJhZug58N6ge-8x_/exec")
 .then(res => res.json())
 .then(datos => {
+
+  datosBoletos = datos;
 
   vendidos = datos
     .filter(x => x.estado === "Vendido")
@@ -59,79 +78,90 @@ fetch("https://script.google.com/macros/s/AKfycbz_cNL9KmRf0LvM5jxwQ5VBUqQ4Z74YBq
   apartados = datos
     .filter(x => x.estado === "Apartado")
     .map(x => x.numero.toString().padStart(4,"0"));
-  
-asignados = datos
-  .filter(x => x.estado === "Asignado")
-  .map(x => x.numero.toString().padStart(4,"0"));
-  console.log(datos);
-for(let i = 1; i <= 2500; i++){
 
-let numero = i.toString().padStart(4,"0");
+  asignados = datos
+    .filter(x => x.estado === "Asignado")
+    .map(x => x.numero.toString().padStart(4,"0"));
 
-let caja = document.createElement("div");
-caja.style.textAlign="center";
+  for(let i = 1; i <= 2500; i++){
 
-let boton = document.createElement("a");
+    let numero = i.toString().padStart(4,"0");
 
-boton.innerHTML = numero;
-boton.href="https://docs.google.com/forms/d/e/1FAIpQLSdSjYZPIpb8ID6lIZHkgPyW4kxOIxn_wXtlpyonQuq0TLOi-g/viewform?usp=pp_url&entry.656653708=" + numero;
-boton.target="_blank";
+    let caja = document.createElement("div");
+    caja.style.textAlign="center";
 
+    let boton = document.createElement("button");
+    boton.innerHTML = numero;
 
-if(vendidos.includes(numero)){
-boton.style.background="red";
-}
-else if(asignados.includes(numero)){
-boton.style.background="purple";
-}
-else if(apartados.includes(numero)){
-boton.style.background="#ffff00";
-}
-else{
-boton.style.background="#00ff00";
-}
+    if(vendidos.includes(numero)){
+      boton.style.background="red";
+      boton.disabled = true;
+    }
+    else if(asignados.includes(numero)){
+      boton.style.background="purple";
+      boton.disabled = true;
+    }
+    else if(apartados.includes(numero)){
+      boton.style.background="#ffff00";
+      boton.disabled = true;
+    }
+    else{
+      boton.style.background="#00ff00";
+      boton.onclick = function() {
+        mostrarOportunidades(numero);
+      };
+    }
 
+    boton.style.color="black";
+    boton.style.padding="8px";
+    boton.style.borderRadius="8px";
+    boton.style.border="none";
+    boton.style.fontWeight="bold";
+    boton.style.display="inline-block";
+    boton.style.cursor="pointer";
 
-boton.style.color="black";
-boton.style.padding="8px";
-boton.style.borderRadius="8px";
-boton.style.textDecoration="none";
-boton.style.fontWeight="bold";
-boton.style.display="inline-block";
-
-
-
-
-boton.style.color="black";
-boton.style.padding="8px";
-boton.style.borderRadius="8px";
-boton.style.textDecoration="none";
-boton.style.fontWeight="bold";
-boton.style.display="inline-block";
-
-caja.appendChild(boton);
-
-contenedor.appendChild(caja);
-
-
-
-
-}
+    caja.appendChild(boton);
+    contenedor.appendChild(caja);
+  }
 });
 
+function mostrarOportunidades(numero) {
+  let boleto = datosBoletos.find(x => x.numero.toString().padStart(4,"0") === numero);
 
+  if (!boleto) return;
 
+  document.getElementById("boletoSeleccionado").innerText = numero;
 
+  document.getElementById("oportunidades").innerHTML = `
+    <div>🟣 ${boleto.op2.toString().padStart(4,"0")}</div>
+    <div>🟣 ${boleto.op3.toString().padStart(4,"0")}</div>
+    <div>🟣 ${boleto.op4.toString().padStart(4,"0")}</div>
+  `;
+
+  document.getElementById("continuarBtn").onclick = function() {
+    let formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSdSjYZPIpb8ID6lIZHkgPyW4kxOIxn_wXtlpyonQuq0TLOi-g/viewform?usp=pp_url&entry.656653708=" + numero;
+    window.open(formUrl, "_blank");
+    cerrarModal();
+  };
+
+  document.getElementById("modal").style.display = "flex";
+}
+
+function cerrarModal() {
+  document.getElementById("modal").style.display = "none";
+}
+
+document.getElementById("cerrarBtn").onclick = cerrarModal;
 </script>
-
 
 <a href="https://wa.me/5216563605771?text=Hola%20quiero%20comprar%20boletos%20para%20la%20rifa%20de%20la%20Silverado"
 style="display:inline-block;margin-top:20px;padding:12px 20px;background:#25D366;color:white;text-decoration:none;border-radius:10px;font-weight:bold;">
 🎟️ Quiero participar
 </a>
 
-
 </div>
 
 </body>
 </html>
+
+
