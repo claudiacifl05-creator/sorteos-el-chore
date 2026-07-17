@@ -110,47 +110,26 @@ fetch("https://script.google.com/macros/s/AKfycbz_cNL9KmRf0LvM5jxwQ5VBUqQ4Z74YBq
       boton.onclick = function() {
        function mostrarOportunidades(numero){
 
-let usadas = [];
-
-datosBoletos.forEach(x => {
-
-  if(x.op2) usadas.push(Number(x.op2));
-  if(x.op3) usadas.push(Number(x.op3));
-  if(x.op4) usadas.push(Number(x.op4));
-
-});
-
-
-let oportunidades = [];
-
-
-while(oportunidades.length < 3){
-
-  let nuevo = Math.floor(Math.random() * (10000 - 2501 + 1)) + 2501;
-
-
-  if(
-    !usadas.includes(nuevo) &&
-    !oportunidades.includes(nuevo)
-  ){
-
-    oportunidades.push(nuevo);
-
-  }
-
-}
+let boleto = datosBoletos.find(x =>
+x.numero.toString().padStart(4,"0") === numero
+);
 
 
 document.getElementById("boletoSeleccionado").innerText = numero;
 
 
+let op2 = boleto && boleto.op2 ? boleto.op2 : "Pendiente";
+let op3 = boleto && boleto.op3 ? boleto.op3 : "Pendiente";
+let op4 = boleto && boleto.op4 ? boleto.op4 : "Pendiente";
+
+
 document.getElementById("oportunidades").innerHTML = `
 
-<div>🟣 ${oportunidades[0].toString().padStart(4,"0")}</div>
+<div>🟣 ${op2.toString().padStart(4,"0")}</div>
 
-<div>🟣 ${oportunidades[1].toString().padStart(4,"0")}</div>
+<div>🟣 ${op3.toString().padStart(4,"0")}</div>
 
-<div>🟣 ${oportunidades[2].toString().padStart(4,"0")}</div>
+<div>🟣 ${op4.toString().padStart(4,"0")}</div>
 
 `;
 
@@ -160,6 +139,7 @@ document.getElementById("modal").style.display="flex";
 
 document.getElementById("continuarBtn").onclick=function(){
 
+
 let formUrl =
 "https://docs.google.com/forms/d/e/1FAIpQLSdSjYZPIpb8ID6lIZHkgPyW4kxOIxn_wXtlpyonQuq0TLOi-g/viewform?usp=pp_url&entry.656653708="
 + numero;
@@ -167,7 +147,14 @@ let formUrl =
 
 window.open(formUrl,"_blank");
 
+
 cerrarModal();
+
+
+};
+
+
+}
 
 };
 
