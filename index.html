@@ -189,5 +189,337 @@ style="display:inline-block;margin-top:20px;padding:12px 20px;background:#25D366
 </div>
 </body>
 </html>
+<!-- VENTANA DE OPORTUNIDADES -->
+
+<div id="modal"
+style="display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.8);
+justify-content:center;
+align-items:center;
+z-index:9999;">
+
+
+<div style="
+background:#1c1c1c;
+padding:25px;
+border-radius:15px;
+width:90%;
+max-width:350px;
+text-align:center;">
+
+
+<h2 style="color:#FFD700;">
+🚗 Sorteos El Chore
+</h2>
+
+
+<h3>
+🎟️ Boleto:
+<span id="boletoSeleccionado"></span>
+</h3>
+
+
+<p>
+🍀 Tus oportunidades extra:
+</p>
+
+
+<div id="oportunidades"
+style="
+font-size:22px;
+line-height:2;
+color:#b000ff;
+font-weight:bold;">
+</div>
+
+
+<p style="font-size:14px;color:#ccc;">
+Si te gustan tus números continúa con el registro.
+</p>
+
+
+<button id="continuarBtn"
+style="
+background:#00ff00;
+color:black;
+border:none;
+padding:10px 20px;
+border-radius:8px;
+font-weight:bold;
+cursor:pointer;">
+Continuar
+</button>
+
+
+<button id="cerrarBtn"
+style="
+background:#555;
+color:white;
+border:none;
+padding:10px 20px;
+border-radius:8px;
+margin-left:10px;
+cursor:pointer;">
+Elegir otro
+</button>
+
+
+</div>
+</div>
+
+
+
+<script>
+
+
+let contenedor = document.getElementById("numeros");
+
+
+let vendidos = [];
+let apartados = [];
+let datosBoletos = [];
+
+
+
+fetch("https://script.google.com/macros/s/AKfycbz_cNL9KmRf0LvM5jxwQ5VBUqQ4Z74YBq_187XSu5atbYChfgh2nJhZug58N6ge-8x_/exec")
+
+.then(res => res.json())
+
+.then(datos => {
+
+
+datosBoletos = datos;
+
+
+
+vendidos = datos
+.filter(x => x.estado === "Vendido")
+.map(x => x.numero.toString().padStart(4,"0"));
+
+
+
+apartados = datos
+.filter(x => x.estado === "Apartado")
+.map(x => x.numero.toString().padStart(4,"0"));
+
+
+
+crearNumeros();
+
+
+
+});
+
+
+
+function crearNumeros(){
+
+
+for(let i=1;i<=2500;i++){
+
+
+let numero=i.toString().padStart(4,"0");
+
+let boton=document.createElement("button");
+
+
+boton.innerHTML=numero;
+
+
+if(vendidos.includes(numero)){
+
+
+boton.style.background="red";
+boton.disabled=true;
+
+
+}
+
+else if(apartados.includes(numero)){
+
+
+boton.style.background="#ffff00";
+boton.disabled=true;
+
+
+}
+
+else{
+
+
+boton.style.background="#00ff00";
+
+
+boton.onclick=function(){
+
+mostrarOportunidades(numero);
+
+};
+
+
+}
+
+
+
+boton.style.color="black";
+boton.style.padding="8px";
+boton.style.borderRadius="8px";
+boton.style.border="none";
+boton.style.fontWeight="bold";
+boton.style.cursor="pointer";
+
+
+
+contenedor.appendChild(boton);
+
+
+
+}
+
+
+}
+function mostrarOportunidades(numero){
+
+
+let usadas = [];
+
+
+datosBoletos.forEach(x => {
+
+if(x.op2) usadas.push(Number(x.op2));
+if(x.op3) usadas.push(Number(x.op3));
+if(x.op4) usadas.push(Number(x.op4));
+
+});
+
+
+
+let oportunidades = [];
+
+
+while(oportunidades.length < 3){
+
+
+let nuevo = Math.floor(Math.random() * (10000 - 2501 + 1)) + 2501;
+
+
+if(
+!usadas.includes(nuevo) &&
+!oportunidades.includes(nuevo)
+){
+
+oportunidades.push(nuevo);
+
+}
+
+
+}
+
+
+
+document.getElementById("boletoSeleccionado").innerText = numero;
+
+
+
+document.getElementById("oportunidades").innerHTML = `
+
+<div>🟣 ${oportunidades[0].toString().padStart(4,"0")}</div>
+
+<div>🟣 ${oportunidades[1].toString().padStart(4,"0")}</div>
+
+<div>🟣 ${oportunidades[2].toString().padStart(4,"0")}</div>
+
+`;
+
+
+
+document.getElementById("modal").style.display="flex";
+
+
+
+document.getElementById("continuarBtn").onclick=function(){
+
+
+let formUrl =
+"https://docs.google.com/forms/d/e/1FAIpQLSdSjYZPIpb8ID6lIZHkgPyW4kxOIxn_wXtlpyonQuq0TLOi-g/viewform?usp=pp_url&entry.656653708="
++
+numero;
+
+
+
+window.open(formUrl,"_blank");
+
+
+cerrarModal();
+
+
+};
+
+
+}
+
+
+
+function cerrarModal(){
+
+
+document.getElementById("modal").style.display="none";
+
+
+}
+
+
+
+document.getElementById("cerrarBtn").onclick=function(){
+
+
+cerrarModal();
+
+
+};
+
+
+
+</script>
+
+
+
+<a href="https://wa.me/5216563605771?text=Hola%20quiero%20participar%20en%20la%20rifa%20de%20la%20Silverado"
+
+style="
+display:inline-block;
+margin-top:20px;
+padding:12px 20px;
+background:#25D366;
+color:white;
+text-decoration:none;
+border-radius:10px;
+font-weight:bold;">
+
+🎟️ Quiero participar
+
+</a>
+
+
+</div>
+
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
 
 
