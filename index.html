@@ -108,7 +108,70 @@ fetch("https://script.google.com/macros/s/AKfycbz_cNL9KmRf0LvM5jxwQ5VBUqQ4Z74YBq
     else{
       boton.style.background="#00ff00";
       boton.onclick = function() {
-        mostrarOportunidades(numero);
+       function mostrarOportunidades(numero){
+
+let usadas = [];
+
+datosBoletos.forEach(x => {
+
+  if(x.op2) usadas.push(Number(x.op2));
+  if(x.op3) usadas.push(Number(x.op3));
+  if(x.op4) usadas.push(Number(x.op4));
+
+});
+
+
+let oportunidades = [];
+
+
+while(oportunidades.length < 3){
+
+  let nuevo = Math.floor(Math.random() * (10000 - 2501 + 1)) + 2501;
+
+
+  if(
+    !usadas.includes(nuevo) &&
+    !oportunidades.includes(nuevo)
+  ){
+
+    oportunidades.push(nuevo);
+
+  }
+
+}
+
+
+document.getElementById("boletoSeleccionado").innerText = numero;
+
+
+document.getElementById("oportunidades").innerHTML = `
+
+<div>🟣 ${oportunidades[0].toString().padStart(4,"0")}</div>
+
+<div>🟣 ${oportunidades[1].toString().padStart(4,"0")}</div>
+
+<div>🟣 ${oportunidades[2].toString().padStart(4,"0")}</div>
+
+`;
+
+
+document.getElementById("modal").style.display="flex";
+
+
+document.getElementById("continuarBtn").onclick=function(){
+
+let formUrl =
+"https://docs.google.com/forms/d/e/1FAIpQLSdSjYZPIpb8ID6lIZHkgPyW4kxOIxn_wXtlpyonQuq0TLOi-g/viewform?usp=pp_url&entry.656653708="
++ numero;
+
+
+window.open(formUrl,"_blank");
+
+cerrarModal();
+
+};
+
+}
       };
     }
 
