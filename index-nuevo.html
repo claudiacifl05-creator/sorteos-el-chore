@@ -278,7 +278,10 @@ fetch(URL_APPS_SCRIPT)
                 boton.onclick = function(){
 
                     boletoSeleccionado.innerText = numero;
-console.log("Boleto seleccionado:", boleto);
+console.log("Boleto completo:", boleto);
+console.log("op2:", boleto.op2);
+console.log("op3:", boleto.op3);
+console.log("op4:", boleto.op4);
                     oportunidades.innerHTML = `
                         <div>🟣 ${String(boleto.op2).padStart(4,"0")}</div>
                         <div>🟣 ${String(boleto.op3).padStart(4,"0")}</div>
