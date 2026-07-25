@@ -205,6 +205,12 @@ z-index:9999;">
 
 </div>
 <script>
+    window.onerror = function (msg, url, line) {
+    document.body.innerHTML =
+        "<h1 style='color:red'>ERROR</h1>" +
+        "<p>" + msg + "</p>" +
+        "<p>Línea: " + line + "</p>";
+};
 const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbz_cNL9KmRf0LvM5jxwQ5VBUqQ4Z74YBq_187XSu5atbYChfgh2nJhZug58N6ge-8x_/exec";
 
 const contenedor = document.getElementById("numeros");
