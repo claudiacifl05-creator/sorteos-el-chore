@@ -135,8 +135,80 @@
     <div id="numeros"></div>
 
 </div>
-  <script>
+    <div id="modal" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.75);
+justify-content:center;
+align-items:center;
+z-index:9999;">
 
+    <div style="
+    background:#1c1c1c;
+    color:white;
+    width:90%;
+    max-width:360px;
+    padding:25px;
+    border-radius:15px;
+    text-align:center;">
+
+        <h2 style="color:#FFD700;">🚗 Sorteos El Chore</h2>
+
+        <h3 style="margin-top:15px;">
+            🎟️ Boleto:
+            <span id="boletoSeleccionado"></span>
+        </h3>
+
+        <p style="margin-top:15px;">
+            🍀 Tus oportunidades extra
+        </p>
+
+        <div id="oportunidades"
+             style="font-size:22px;
+                    font-weight:bold;
+                    color:#b000ff;
+                    line-height:2;">
+        </div>
+
+        <p style="font-size:14px;color:#ccc;">
+            Si te gustan tus números continúa con el registro.
+        </p>
+
+        <div style="margin-top:20px;">
+
+            <button id="continuarBtn"
+            style="
+            background:#00c853;
+            color:black;
+            border:none;
+            padding:10px 18px;
+            border-radius:8px;
+            font-weight:bold;
+            cursor:pointer;">
+            Continuar
+            </button>
+
+            <button id="cerrarBtn"
+            style="
+            background:#555;
+            color:white;
+            border:none;
+            padding:10px 18px;
+            border-radius:8px;
+            margin-left:10px;
+            cursor:pointer;">
+            Elegir otro
+            </button>
+
+        </div>
+
+    </div>
+    </div>
+   <script>
 const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbz_cNL9KmRf0LvM5jxwQ5VBUqQ4Z74YBq_187XSu5atbYChfgh2nJhZug58N6ge-8x_/exec";
 
 const contenedor = document.getElementById("numeros");
@@ -144,42 +216,66 @@ const contenedor = document.getElementById("numeros");
 fetch(URL_APPS_SCRIPT)
 .then(res => res.json())
 .then(datos => {
+
     console.log(datos);
-    for(let i=1;i<=2500;i++){
 
-        const numero=i.toString().padStart(4,"0");
+    for (let i = 1; i <= 2500; i++) {
 
-        const boton=document.createElement("button");
+        const numero = i.toString().padStart(4,"0");
 
-        boton.className="numero";
+        const boton = document.createElement("button");
 
-        boton.textContent=numero;
+        boton.className = "numero";
+        boton.textContent = numero;
 
-        const boleto=datos.find(x =>
-            x.numero.toString().padStart(4,"0")===numero
+        boton.style.color = "black";
+        boton.style.padding = "8px";
+        boton.style.margin = "3px";
+        boton.style.border = "none";
+        boton.style.borderRadius = "8px";
+        boton.style.fontWeight = "bold";
+        boton.style.cursor = "pointer";
+
+        const boleto = datos.find(x =>
+            x.numero.toString().padStart(4,"0") === numero
         );
 
-        if(boleto){
+        if (boleto) {
 
-            switch(boleto.estado){
+            switch (boleto.estado) {
 
                 case "Vendido":
-                    boton.style.background="#d50000";
-                    boton.disabled=true;
+                    boton.style.background = "#d50000";
+                    boton.disabled = true;
                     break;
 
                 case "Apartado":
-                    boton.style.background="#ffd600";
-                    boton.disabled=true;
+                    boton.style.background = "#ffd600";
+                    boton.disabled = true;
                     break;
 
                 case "Asignado":
-                    boton.style.background="#7b1fa2";
-                    boton.disabled=true;
+                    boton.style.background = "#7b1fa2";
+                    boton.disabled = true;
                     break;
 
                 default:
-                    boton.style.background="#00c853";
+
+                    boton.style.background = "#00c853";
+
+                    boton.onclick = function () {
+
+                        document.getElementById("boletoSeleccionado").innerText = numero;
+
+                        document.getElementById("oportunidades").innerHTML = `
+                            <div>🟣 ${String(boleto.op2 || "").padStart(4,"0")}</div>
+                            <div>🟣 ${String(boleto.op3 || "").padStart(4,"0")}</div>
+                            <div>🟣 ${String(boleto.op4 || "").padStart(4,"0")}</div>
+                        `;
+
+                        document.getElementById("modal").style.display = "flex";
+
+                    };
 
             }
 
@@ -191,8 +287,21 @@ fetch(URL_APPS_SCRIPT)
 
 });
 
-</script>
+document.getElementById("cerrarBtn").onclick = function () {
+    document.getElementById("modal").style.display = "none";
+};
 
+document.getElementById("continuarBtn").onclick = function () {
+
+    const numero = document.getElementById("boletoSeleccionado").innerText;
+
+    window.open(
+        "https://docs.google.com/forms/d/e/1FAIpQLSdSjYZPIpb8ID6lIZHkgPyW4kxOIxn_wXtlpyonQuq0TLOi-g/viewform?usp=pp_url&entry.656653708=" + numero,
+        "_blank"
+    );
+
+};
+</script>
 
 </body>
 </html>
