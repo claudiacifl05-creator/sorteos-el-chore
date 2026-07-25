@@ -212,7 +212,7 @@ z-index:9999;">
 const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbz_cNL9KmRf0LvM5jxwQ5VBUqQ4Z74YBq_187XSu5atbYChfgh2nJhZug58N6ge-8x_/exec";
 
 const contenedor = document.getElementById("numeros");
-
+console.log("Contenedor:", contenedor);
 fetch(URL_APPS_SCRIPT)
 .then(res => res.json())
 .then(datos => {
