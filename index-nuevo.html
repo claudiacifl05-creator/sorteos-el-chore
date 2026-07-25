@@ -1,141 +1,135 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sorteos El Chore</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sorteos El Chore</title>
 
-    <style>
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-        }
+<style>
 
-        body{
-            background:#111;
-            color:#fff;
-            font-family:Arial,Helvetica,sans-serif;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        .contenedor{
-            max-width:700px;
-            margin:auto;
-            padding:20px;
-        }
+body{
+    background:#111;
+    color:white;
+    font-family:Arial,Helvetica,sans-serif;
+}
 
-        h1{
-            color:#FFD700;
-            text-align:center;
-            margin-bottom:20px;
-        }
+.contenedor{
+    width:95%;
+    max-width:700px;
+    margin:auto;
+    padding:20px;
+}
 
-        img{
-            width:100%;
-            border-radius:15px;
-            display:block;
-        }
+h1{
+    text-align:center;
+    color:#FFD700;
+    margin-bottom:20px;
+}
 
-        .info{
-            background:#1d1d1d;
-            margin-top:20px;
-            padding:20px;
-            border-radius:15px;
-            text-align:center;
-        }
+img{
+    width:100%;
+    border-radius:15px;
+}
 
-        .info p{
-            margin:10px 0;
-        }
+.info{
+    background:#1c1c1c;
+    margin-top:20px;
+    padding:20px;
+    border-radius:15px;
+    text-align:center;
+}
 
-        .leyenda{
-            display:grid;
-            grid-template-columns:repeat(2,1fr);
-            gap:10px;
-            margin-top:20px;
-        }
+.info p{
+    margin:10px 0;
+}
 
-        .leyenda div{
-            padding:10px;
-            border-radius:10px;
-            text-align:center;
-            font-weight:bold;
-        }
+.leyenda{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    margin-top:20px;
+}
 
-        .verde{background:#00c853;color:#000;}
-        .amarillo{background:#ffd600;color:#000;}
-        .rojo{background:#d50000;}
-        .morado{background:#7b1fa2;}
+.leyenda div{
+    padding:10px;
+    border-radius:10px;
+    text-align:center;
+    font-weight:bold;
+}
 
-        h2{
-            text-align:center;
-            margin-top:30px;
-        }
+.verde{background:#00c853;color:black;}
+.amarillo{background:#ffd600;color:black;}
+.rojo{background:#d50000;}
+.morado{background:#7b1fa2;}
 
-        #numeros{
-            margin-top:20px;
-            display:flex;
-            flex-wrap:wrap;
-            justify-content:center;
-            gap:8px;
-        }
-          .numero{
-    width:60px;
+#numeros{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:8px;
+    margin-top:25px;
+}
+
+.numero{
+    width:58px;
     height:40px;
     border:none;
     border-radius:8px;
     font-weight:bold;
     cursor:pointer;
-    background:#00c853;
-    color:#000;
-    transition:0.2s;
+    color:black;
 }
 
-.numero:hover{
-    transform:scale(1.05);
-}
-    </style>
+</style>
 </head>
 
 <body>
 
 <div class="contenedor">
 
-    <h1>🚗 Sorteos El Chore 🚗</h1>
+<h1>🚗 Sorteos El Chore 🚗</h1>
 
-    <img src="silverado2026.jpg" alt="Silverado 1500 2019">
+<img src="silverado2026.jpg" alt="Silverado">
 
-    <div class="info">
+<div class="info">
 
-        <h2>Gran Rifa Chevrolet Silverado 1500 2019</h2>
+<h2>Gran Rifa Chevrolet Silverado 1500 2019</h2>
 
-        <p>💰 <strong>Boleto: $350 pesos</strong></p>
+<p>💰 Boleto: <b>$350 pesos</b></p>
 
-        <p>🎟️ 2,500 boletos disponibles</p>
+<p>🎟️ 2,500 boletos disponibles</p>
 
-        <p>🍀 4 oportunidades por boleto</p>
+<p>🍀 4 oportunidades por boleto</p>
 
-        <p>📍 Ciudad Juárez</p>
+<p>📍 Ciudad Juárez</p>
 
-        <p><strong>Sujeto al 60% de venta.</strong></p>
-
-    </div>
-
-    <div class="leyenda">
-
-        <div class="verde">🟢 Disponible</div>
-        <div class="amarillo">🟡 Apartado</div>
-        <div class="rojo">🔴 Vendido</div>
-        <div class="morado">🟣 Oportunidad extra</div>
-
-    </div>
-
-    <h2>🎟️ Elige tu número</h2>
-
-    <div id="numeros"></div>
+<p><b>Sujeto al 60% de venta.</b></p>
 
 </div>
-    <div id="modal" style="
+
+<div class="leyenda">
+
+<div class="verde">🟢 Disponible</div>
+<div class="amarillo">🟡 Apartado</div>
+<div class="rojo">🔴 Vendido</div>
+<div class="morado">🟣 Oportunidad extra</div>
+
+</div>
+
+<h2 style="margin-top:30px;text-align:center;">
+🎟️ Elige tu número
+</h2>
+
+<div id="numeros"></div>
+
+</div>
+<div id="modal" style="
 display:none;
 position:fixed;
 top:0;
@@ -158,7 +152,7 @@ z-index:9999;">
 
         <h2 style="color:#FFD700;">🚗 Sorteos El Chore</h2>
 
-        <h3 style="margin-top:15px;">
+        <h3>
             🎟️ Boleto:
             <span id="boletoSeleccionado"></span>
         </h3>
@@ -168,10 +162,11 @@ z-index:9999;">
         </p>
 
         <div id="oportunidades"
-             style="font-size:22px;
-                    font-weight:bold;
-                    color:#b000ff;
-                    line-height:2;">
+             style="
+             font-size:22px;
+             font-weight:bold;
+             color:#b000ff;
+             line-height:2;">
         </div>
 
         <p style="font-size:14px;color:#ccc;">
@@ -181,43 +176,63 @@ z-index:9999;">
         <div style="margin-top:20px;">
 
             <button id="continuarBtn"
-            style="
-            background:#00c853;
-            color:black;
-            border:none;
-            padding:10px 18px;
-            border-radius:8px;
-            font-weight:bold;
-            cursor:pointer;">
-            Continuar
+                style="
+                background:#00c853;
+                color:black;
+                border:none;
+                padding:10px 18px;
+                border-radius:8px;
+                font-weight:bold;
+                cursor:pointer;">
+                Continuar
             </button>
 
             <button id="cerrarBtn"
-            style="
-            background:#555;
-            color:white;
-            border:none;
-            padding:10px 18px;
-            border-radius:8px;
-            margin-left:10px;
-            cursor:pointer;">
-            Elegir otro
+                style="
+                background:#555;
+                color:white;
+                border:none;
+                padding:10px 18px;
+                border-radius:8px;
+                margin-left:10px;
+                cursor:pointer;">
+                Elegir otro
             </button>
 
         </div>
 
     </div>
-    </div>
-   <script>
+
+</div>
+<script>
 const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbz_cNL9KmRf0LvM5jxwQ5VBUqQ4Z74YBq_187XSu5atbYChfgh2nJhZug58N6ge-8x_/exec";
 
 const contenedor = document.getElementById("numeros");
-console.log("Contenedor:", contenedor);
+const modal = document.getElementById("modal");
+const boletoSeleccionado = document.getElementById("boletoSeleccionado");
+const oportunidades = document.getElementById("oportunidades");
+const btnCerrar = document.getElementById("cerrarBtn");
+const btnContinuar = document.getElementById("continuarBtn");
+
+btnCerrar.onclick = function () {
+    modal.style.display = "none";
+};
+
+btnContinuar.onclick = function () {
+
+    const numero = boletoSeleccionado.innerText;
+
+    window.open(
+        "https://docs.google.com/forms/d/e/1FAIpQLSdSjYZPIpb8ID6lIZHkgPyW4kxOIxn_wXtlpyonQuq0TLOi-g/viewform?usp=pp_url&entry.656653708=" + numero,
+        "_blank"
+    );
+
+};
 fetch(URL_APPS_SCRIPT)
 .then(res => res.json())
 .then(datos => {
 
-    console.log(datos);
+    console.log("Datos recibidos:", datos);
 
     for (let i = 1; i <= 2500; i++) {
 
@@ -226,58 +241,53 @@ fetch(URL_APPS_SCRIPT)
         const boton = document.createElement("button");
 
         boton.className = "numero";
+
         boton.textContent = numero;
 
-        boton.style.color = "black";
-        boton.style.padding = "8px";
-        boton.style.margin = "3px";
-        boton.style.border = "none";
-        boton.style.borderRadius = "8px";
-        boton.style.fontWeight = "bold";
-        boton.style.cursor = "pointer";
-
         const boleto = datos.find(x =>
-            x.numero.toString().padStart(4,"0") === numero
+            String(x.numero).padStart(4,"0") === numero
         );
 
-        if (boleto) {
+        if (!boleto) {
+            boton.style.background = "#00c853";
+            contenedor.appendChild(boton);
+            continue;
+        }
 
-            switch (boleto.estado) {
+        switch (boleto.estado) {
 
-                case "Vendido":
-                    boton.style.background = "#d50000";
-                    boton.disabled = true;
-                    break;
+            case "Vendido":
+                boton.style.background = "#d50000";
+                boton.disabled = true;
+                break;
 
-                case "Apartado":
-                    boton.style.background = "#ffd600";
-                    boton.disabled = true;
-                    break;
+            case "Apartado":
+                boton.style.background = "#ffd600";
+                boton.disabled = true;
+                break;
 
-                case "Asignado":
-                    boton.style.background = "#7b1fa2";
-                    boton.disabled = true;
-                    break;
+            case "Asignado":
+                boton.style.background = "#7b1fa2";
+                boton.disabled = true;
+                break;
 
-                default:
+            default:
 
-                    boton.style.background = "#00c853";
+                boton.style.background = "#00c853";
 
-                    boton.onclick = function () {
+                boton.onclick = function(){
 
-                        document.getElementById("boletoSeleccionado").innerText = numero;
+                    boletoSeleccionado.innerText = numero;
 
-                        document.getElementById("oportunidades").innerHTML = `
-                            <div>🟣 ${String(boleto.op2 || "").padStart(4,"0")}</div>
-                            <div>🟣 ${String(boleto.op3 || "").padStart(4,"0")}</div>
-                            <div>🟣 ${String(boleto.op4 || "").padStart(4,"0")}</div>
-                        `;
+                    oportunidades.innerHTML = `
+                        <div>🟣 ${String(boleto.op2).padStart(4,"0")}</div>
+                        <div>🟣 ${String(boleto.op3).padStart(4,"0")}</div>
+                        <div>🟣 ${String(boleto.op4).padStart(4,"0")}</div>
+                    `;
 
-                        document.getElementById("modal").style.display = "flex";
+                    modal.style.display = "flex";
 
-                    };
-
-            }
+                };
 
         }
 
@@ -285,22 +295,11 @@ fetch(URL_APPS_SCRIPT)
 
     }
 
+})
+.catch(error => {
+    console.error("Error al cargar datos:", error);
 });
 
-document.getElementById("cerrarBtn").onclick = function () {
-    document.getElementById("modal").style.display = "none";
-};
-
-document.getElementById("continuarBtn").onclick = function () {
-
-    const numero = document.getElementById("boletoSeleccionado").innerText;
-
-    window.open(
-        "https://docs.google.com/forms/d/e/1FAIpQLSdSjYZPIpb8ID6lIZHkgPyW4kxOIxn_wXtlpyonQuq0TLOi-g/viewform?usp=pp_url&entry.656653708=" + numero,
-        "_blank"
-    );
-
-};
 </script>
 
 </body>
