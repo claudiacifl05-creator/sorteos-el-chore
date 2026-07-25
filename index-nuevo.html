@@ -137,21 +137,62 @@
 </div>
   <script>
 
+const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbz_cNL9KmRf0LvM5jxwQ5VBUqQ4Z74YBq_187XSu5atbYChfgh2nJhZug58N6ge-8x_/exec";
+
 const contenedor = document.getElementById("numeros");
 
-for(let i = 1; i <= 2500; i++){
+fetch(URL_APPS_SCRIPT)
+.then(res => res.json())
+.then(datos => {
 
-    const boton = document.createElement("button");
+    for(let i=1;i<=2500;i++){
 
-    boton.className = "numero";
+        const numero=i.toString().padStart(4,"0");
 
-    boton.textContent = i.toString().padStart(4,"0");
+        const boton=document.createElement("button");
 
-    contenedor.appendChild(boton);
+        boton.className="numero";
 
-}
+        boton.textContent=numero;
+
+        const boleto=datos.find(x =>
+            x.numero.toString().padStart(4,"0")===numero
+        );
+
+        if(boleto){
+
+            switch(boleto.estado){
+
+                case "Vendido":
+                    boton.style.background="#d50000";
+                    boton.disabled=true;
+                    break;
+
+                case "Apartado":
+                    boton.style.background="#ffd600";
+                    boton.disabled=true;
+                    break;
+
+                case "Asignado":
+                    boton.style.background="#7b1fa2";
+                    boton.disabled=true;
+                    break;
+
+                default:
+                    boton.style.background="#00c853";
+
+            }
+
+        }
+
+        contenedor.appendChild(boton);
+
+    }
+
+});
 
 </script>
+
 
 </body>
 </html>
